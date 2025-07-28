@@ -193,10 +193,6 @@ function handleContactForm(e) {
 }
 
 
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
 
 function showNotification(message, type) {
     // Remove existing notifications
