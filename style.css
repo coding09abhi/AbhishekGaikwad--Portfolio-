@@ -767,6 +767,7 @@ section {
     left: 0;
     color: var(--primary-color);
     font-weight: bold;
+    margin:0px 10px;
 }
 
 .service-features li:last-child {
