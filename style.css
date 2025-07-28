@@ -750,8 +750,8 @@ section {
 
 .service-features {
     list-style: none;
-    text-align: center;
-    margin:0px 0px 0px 10px;
+    text-align: left;
+
 }
 
 .service-features li {
@@ -759,7 +759,7 @@ section {
     border-bottom: 1px solid var(--border-color);
     color: var(--text-secondary);
     position: relative;
-    padding-left: 1.5rem; 
+    padding-left: 5rem; 
   
 }
 
