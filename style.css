@@ -759,7 +759,7 @@ section {
     border-bottom: 1px solid var(--border-color);
     color: var(--text-secondary);
     position: relative;
-    padding-left: 5rem; 
+    padding-left: 1.5rem; 
   
 }
 
@@ -1192,6 +1192,7 @@ section {
     .service-features li {
         padding: 0.6rem 0;
         font-size: 0.85rem;
+        margin:20px 0px;
     }
     
     /* Contact Section */
