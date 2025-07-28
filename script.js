@@ -148,53 +148,43 @@ function initScrollAnimations() {
 
 // Contact Form Handling
 function handleContactForm(e) {
-    e.preventDefault();
+e.preventDefault();
 
-    // Get form data
-    const formData = new FormData(contactForm);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
+// Get form data  
+const formData = new FormData(contactForm);  
+const name = formData.get('name');  
+const email = formData.get('email');  
+const subject = formData.get('subject');  
+const message = formData.get('message');  
+  
+// Basic validation  
+if (!name || !email || !subject || !message) {  
+    showNotification('Please fill in all fields.', 'error');  
+    return;  
+}  
+  
+if (!isValidEmail(email)) {  
+    showNotification('Please enter a valid email address.', 'error');  
+    return;  
+}  
+  
+// Simulate form submission  
+showLoadingState();  
+  
+setTimeout(() => {  
+    hideLoadingState();  
+    showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');  
+    contactForm.reset();  
+}, 2000);
 
-    // Basic validation
-    if (!name || !email || !subject || !message) {
-        showNotification('Please fill in all fields.', 'error');
-        return;
-    }
-
-    if (!isValidEmail(email)) {
-        showNotification('Please enter a valid email address.', 'error');
-        return;
-    }
-
-    // Show loading state
-    showLoadingState();
-
-    // 📌 Send data to Google Sheets via Web App
-    fetch("https://script.google.com/macros/s/AKfycbw-zVWM0PyMb8_3vqGucplm6EOhHQbA2jjreuQ_8n13sgc9-gV4W5BaJqB2jZbbZavG9g/exec", {
-        method: "POST",
-        body: JSON.stringify({ name, email, subject, message }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        hideLoadingState();
-        showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');
-        contactForm.reset();
-    })
-    .catch(error => {
-        hideLoadingState();
-        showNotification('There was an error sending your message. Please try again.', 'error');
-        console.error(error);
-    });
 }
+
 function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+return emailRegex.test(email);
 }
+
+
 
 
 function showNotification(message, type) {
