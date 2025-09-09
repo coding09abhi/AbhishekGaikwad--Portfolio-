@@ -409,21 +409,33 @@
                     </div>
                 </div>
                 
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+               <div class="contact-form">
+    <form id="contact-form" action="https://formspree.io/f/xnnbwnyq" method="POST">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Your Email" required>
+        </div>
+        <div class="form-group">
+            <input type="text" name="subject" placeholder="Subject">
+        </div>
+        <div class="form-group">
+            <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+        </div>
+        
+        <!-- Anti-spam honeypot -->
+        <input type="text" name="_gotcha" style="display:none">
+        
+        <!-- Optional: Set subject for the email you receive -->
+        <input type="hidden" name="_subject" value="New message from portfolio site">
+
+        <button type="submit" class="btn">Send Message</button>
+    </form>
+
+    <!-- Status message -->
+    <p id="form-status"></p>
+</div>
             </div>
         </div>
     </section>
