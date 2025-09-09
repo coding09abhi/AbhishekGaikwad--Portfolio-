@@ -527,3 +527,6 @@ navStyle.textContent = `
     }
 `;
 document.head.appendChild(navStyle);
+
+const contactForm = document.getElementById("contact-form");
+contactForm.addEventListener("submit", handleContactForm);
