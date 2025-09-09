@@ -209,15 +209,9 @@ function showNotification(message, type) {
 
     document.body.appendChild(notification);
 
-    // 🔥 Slide-in effect
-    setTimeout(() => {
-        notification.classList.add("show");
-    }, 100);
-
     // Auto remove after 4s
     setTimeout(() => {
-        notification.classList.remove("show");
-        setTimeout(() => notification.remove(), 500);
+        notification.remove();
     }, 4000);
 }
     // Add styles
@@ -528,5 +522,4 @@ navStyle.textContent = `
 `;
 document.head.appendChild(navStyle);
 
-const contactForm = document.getElementById("contact-form");
-contactForm.addEventListener("submit", handleContactForm);
+
