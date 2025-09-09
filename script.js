@@ -148,44 +148,54 @@ function initScrollAnimations() {
 
 // Contact Form Handling
 function handleContactForm(e) {
-e.preventDefault();
+    e.preventDefault();
 
-// Get form data  
-const formData = new FormData(contactForm);  
-const name = formData.get('name');  
-const email = formData.get('email');  
-const subject = formData.get('subject');  
-const message = formData.get('message');  
-  
-// Basic validation  
-if (!name || !email || !subject || !message) {  
-    showNotification('Please fill in all fields.', 'error');  
-    return;  
-}  
-  
-if (!isValidEmail(email)) {  
-    showNotification('Please enter a valid email address.', 'error');  
-    return;  
-}  
-  
-// Simulate form submission  
-showLoadingState();  
-  
-setTimeout(() => {  
-    hideLoadingState();  
-    showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');  
-    contactForm.reset();  
-}, 2000);
+    // Get form data  
+    const formData = new FormData(contactForm);  
+    const name = formData.get('name');  
+    const email = formData.get('email');  
+    const subject = formData.get('subject');  
+    const message = formData.get('message');  
+    
+    // Basic validation  
+    if (!name || !email || !subject || !message) {  
+        showNotification('Please fill in all fields.', 'error');  
+        return;  
+    }  
+    
+    if (!isValidEmail(email)) {  
+        showNotification('Please enter a valid email address.', 'error');  
+        return;  
+    }  
+    
+    // Show loading  
+    showLoadingState();  
 
+    // ✅ Send form data to Formspree
+    fetch("https://formspree.io/f/xnnbwnyq", {   // replace with your real form ID
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+        hideLoadingState();
+        if (response.ok) {
+            showNotification("✅ Thank you for your message! I'll get back to you soon.", "success");
+            contactForm.reset();
+        } else {
+            showNotification("❌ Oops! Something went wrong. Please try again.", "error");
+        }
+    })
+    .catch(() => {
+        hideLoadingState();
+        showNotification("⚠️ Network error. Please check your connection.", "error");
+    });
 }
 
 function isValidEmail(email) {
-const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
-return emailRegex.test(email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // fixed regex
+    return emailRegex.test(email);
 }
-
-
-
 
 function showNotification(message, type) {
     // Remove existing notifications
@@ -196,7 +206,14 @@ function showNotification(message, type) {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
-    
+
+    document.body.appendChild(notification);
+
+    // Auto remove after 4s
+    setTimeout(() => {
+        notification.remove();
+    }, 4000);
+}
     // Add styles
     notification.style.cssText = `
         position: fixed;
