@@ -172,7 +172,7 @@ function handleContactForm(e) {
     showLoadingState();  
 
     // ✅ Send form data to Formspree
-    fetch("https://formspree.io/f/xnnbwnyq", {   // replace with your real form ID
+    fetch("https://formspree.io/f/your-form-id", {   // replace with your real form ID
         method: "POST",
         body: formData,
         headers: { 'Accept': 'application/json' }
@@ -209,9 +209,15 @@ function showNotification(message, type) {
 
     document.body.appendChild(notification);
 
+    // 🔥 Slide-in effect
+    setTimeout(() => {
+        notification.classList.add("show");
+    }, 100);
+
     // Auto remove after 4s
     setTimeout(() => {
-        notification.remove();
+        notification.classList.remove("show");
+        setTimeout(() => notification.remove(), 500);
     }, 4000);
 }
     // Add styles
